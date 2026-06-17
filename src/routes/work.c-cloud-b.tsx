@@ -343,12 +343,12 @@ function CaseStudy() {
           a UI. Each transform is a card. Cards stack into a named pipeline.
           The pipeline can be re-run, paused, re-ordered, or asked of the AI.
         </Prose>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6">
           <ImagePlate
             src={sketchCleanup}
             alt="Whiteboard sketch of the Data Cleanup pipeline pre-plan with stepper, operators, and pipeline flow"
             caption="The pre-plan. Pipeline operators sketched on a whiteboard before any UI was built."
-            aspect="aspect-[16/9]"
+            aspect="aspect-[9/16]"
             fit="contain"
             bg="bg-white"
             frame="Pre-plan / Data Cleanup Pipeline — Sketch"
