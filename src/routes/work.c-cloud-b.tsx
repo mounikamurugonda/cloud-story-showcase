@@ -404,7 +404,7 @@ function CaseStudy() {
           <ImagePlate
             src={sketchMapping}
             alt="Hand-drawn sketch of the column mapping screen with input columns on the left and standard columns on the right"
-            caption="The sketch. Input chips on the left, standard slots on the right. Asterisks for required fields."
+            caption="The sketch. Input chips on the left, standard slots on the right. Asterisks for required fields. -web references"
             aspect="aspect-[16/10]"
             fit="contain"
             bg="bg-[#fbf6ec]"
