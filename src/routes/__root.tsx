@@ -92,6 +92,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Mounika Murugonda — Frontend & UI/UX Developer" },
+      { name: "description", content: "Cloud UX Showcase presents a UI/UX portfolio and case study for the Complyia application." },
+      { property: "og:description", content: "Cloud UX Showcase presents a UI/UX portfolio and case study for the Complyia application." },
+      { name: "twitter:description", content: "Cloud UX Showcase presents a UI/UX portfolio and case study for the Complyia application." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/67a35b24-ba5d-4b65-b833-d48936391c7a/id-preview-63f02208--65e9f78a-f673-44b6-b8ee-abe85b38b80b.lovable.app-1781668414324.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/67a35b24-ba5d-4b65-b833-d48936391c7a/id-preview-63f02208--65e9f78a-f673-44b6-b8ee-abe85b38b80b.lovable.app-1781668414324.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
