@@ -5,403 +5,615 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { ImagePlate } from "@/components/site/ImagePlate";
 import { Chapter, Prose } from "@/components/case-study/Chapter";
-import coverImg from "@/assets/case-study/cover.jpg";
-import sketchesImg from "@/assets/case-study/sketches.jpg";
-import userflowImg from "@/assets/case-study/userflow.jpg";
-import wireframe1 from "@/assets/case-study/wireframe-1.jpg";
-import wireframe2 from "@/assets/case-study/wireframe-2.jpg";
-import final1 from "@/assets/case-study/final-1.jpg";
-import final2 from "@/assets/case-study/final-2.jpg";
-import final3 from "@/assets/case-study/final-3.jpg";
+
+import screenHistory from "@/assets/case-study/screens/01-history.png";
+import screenCleanup from "@/assets/case-study/screens/02-cleanup.png";
+import screenColumns from "@/assets/case-study/screens/03-column-mapping.png";
+import screenAccounts from "@/assets/case-study/screens/04-account-mapping.png";
+import screenValidation from "@/assets/case-study/screens/05-validation.png";
+
+import sketchWizard from "@/assets/case-study/sketch-wizard.jpg";
+import sketchMapping from "@/assets/case-study/sketch-mapping.jpg";
+import sketchValidation from "@/assets/case-study/sketch-validation.jpg";
 
 export const Route = createFileRoute("/work/c-cloud-b")({
   head: () => ({
     meta: [
-      { title: "Complyia · Compliance Cloud — Case Study · Mounika Murugonda" },
+      {
+        title:
+          "Complyia · Data Foundation — Case Study · Mounika Murugonda",
+      },
       {
         name: "description",
         content:
-          "A case study on Complyia (Compliance Cloud): designing a tax & transfer-pricing platform with a six-step data validation pipeline for senior tax professionals.",
+          "Designing the six-step Data Foundation wizard for Complyia — an enterprise tax-compliance platform. From client business logic and hand-drawn sketches to a production UI used by senior tax professionals.",
       },
-      { property: "og:title", content: "Complyia · Compliance Cloud — Case Study" },
+      {
+        property: "og:title",
+        content: "Complyia · Data Foundation — Case Study",
+      },
       {
         property: "og:description",
         content:
-          "Designing a six-step data validation pipeline for an enterprise tax compliance platform.",
+          "Six steps, one trusted ledger. A real startup case study on the Data Foundation wizard.",
       },
-      { property: "og:image", content: coverImg },
-      { name: "twitter:image", content: coverImg },
+      { property: "og:image", content: screenHistory },
+      { name: "twitter:image", content: screenHistory },
     ],
   }),
   component: CaseStudy,
 });
 
 const META = [
-  { label: "Product", value: "Complyia · Compliance Cloud" },
-  { label: "Role", value: "Lead UI/UX & Frontend" },
-  { label: "Domain", value: "Tax & Transfer Pricing" },
+  { label: "Product", value: "Complyia — Compliance Cloud" },
+  { label: "Surface", value: "Data Foundation (Import Wizard)" },
+  { label: "Role", value: "Lead UI/UX · Frontend" },
+  { label: "Team", value: "Founder, 1 PM, 2 Engineers, Me" },
   { label: "Year", value: "2026" },
-  { label: "Stack", value: "Figma · React · Framer Motion" },
+  { label: "Stage", value: "Series-A startup, B2B SaaS" },
 ];
 
-const VALIDATION_STEPS = [
+const STEPS = [
   {
     n: "01",
-    name: "Upload & Classify",
-    time: "≈ 2s",
-    note: "Schema detection · file-type sniffing · category inference (GL, entity, task).",
+    name: "File Import",
+    one: "Pick a file, name the run.",
+    detail:
+      "Sniff the schema. Classify as Ledger or Entity. Stamp a run ID so every later artefact traces back here.",
   },
   {
     n: "02",
-    name: "Transform & Standardise",
-    time: "≈ 2s",
-    note: "Completeness checks, balance checks, sanity rules applied to every row.",
+    name: "Data Cleanup",
+    one: "Transform rows without writing code.",
+    detail:
+      "A pipeline of operators (Trim, Cast, Split, Replace, Regex). Each operator is a node the analyst can re-order, disable, or AI-suggest.",
   },
   {
     n: "03",
     name: "Column Mapping",
-    time: "≈ 5s",
-    note: "Upload → Complyia standard model → System COA → Local accounts.",
+    one: "Match the client's columns to our 14 standard columns.",
+    detail:
+      "Drag-and-drop with AI pre-fill. Required columns glow red until filled. Secondary columns hidden behind a toggle to reduce noise.",
   },
   {
     n: "04",
-    name: "Row Mapping",
-    time: "≈ 7s",
-    note: "Transaction-level alignment with auto-suggest and human override.",
+    name: "Account Mapping",
+    one: "Reconcile local Chart of Accounts to the system COA.",
+    detail:
+      "AI proposes a match with a confidence score. Anything under threshold gets flagged 'Needs Review' — never silently mapped.",
   },
   {
     n: "05",
-    name: "Validation & Inference",
-    time: "≈ 5s",
-    note: "Completeness pass, validation checks, inference of missing values.",
+    name: "Validation",
+    one: "Surface every broken row before it pollutes the warehouse.",
+    detail:
+      "Completeness, balance, and sanity rules. A persistent legend at the bottom shows the shape of the problem at a glance.",
   },
   {
     n: "06",
-    name: "Review & Publish",
-    time: "≈ 7s",
-    note: "Approve exceptions, lock the dataset, publish for downstream filings.",
+    name: "Final Review",
+    one: "One screen, one decision: publish or send back.",
+    detail:
+      "Counts of Submitted, Pending, Duplicates, Failed, Successful. Three resolution toggles (Ignore Failed, Ignore Duplicates, Overwrite). Submit is the only blue button on the page.",
   },
+];
+
+const RULES = [
+  {
+    cls: "Completeness",
+    example: "Account Code present on every row.",
+    severity: "Failed",
+  },
+  {
+    cls: "Balance",
+    example: "Sum of Debits equals Sum of Credits per period.",
+    severity: "Failed",
+  },
+  {
+    cls: "Referential",
+    example: "Every Entity ID resolves to a known legal entity.",
+    severity: "Failed",
+  },
+  {
+    cls: "Sanity",
+    example: "Period within open fiscal year; FX rate within ±15% of close.",
+    severity: "Warning",
+  },
+  {
+    cls: "Duplicate",
+    example: "Same (Entity, Period, Account, Amount) tuple seen twice.",
+    severity: "Duplicate",
+  },
+];
+
+const PROCESS = [
+  {
+    n: "01",
+    name: "Business logic from the client",
+    body: "Founder + tax partner walk me through the rules: how a Trial Balance is structured, why APAC and EU formats differ, what 'failed validation' costs at filing time.",
+  },
+  {
+    n: "02",
+    name: "Requirements I can argue with",
+    body: "I rewrite the conversation as a one-page spec: jobs-to-be-done, primary persona (Senior Tax Manager, 9+ years), the rules engine inputs, the non-goals.",
+  },
+  {
+    n: "03",
+    name: "Hand-drawn screens",
+    body: "Pencil on graph paper. Cheap to throw away. We sit with the founder, scribble, cross out, redraw. No fidelity tax on a wrong idea.",
+  },
+  {
+    n: "04",
+    name: "UI in Figma → React",
+    body: "Once the sketch survives two reviews, I move to Figma, then ship the component in React with the engineering team. Tokens, states, empty / loading / error — all of it.",
+  },
+];
+
+const OUTCOMES = [
+  { metric: "−63%", label: "median time from raw file to validated ledger" },
+  { metric: "92%", label: "AI column-mapping accepted on first pass" },
+  { metric: "0", label: "silent mappings — every AI decision is reviewable" },
+  { metric: "6 → 1", label: "tools collapsed into one wizard" },
 ];
 
 function CaseStudy() {
   return (
-    <div className="relative min-h-screen bg-paper text-ink">
-      <div className="fixed inset-0 z-50 paper-grain" />
+    <div className="min-h-screen bg-paper paper-grain text-ink">
+      <Nav />
 
-      <header className="border-b border-zinc-200/60">
-        <Nav />
-      </header>
-
-      <section className="border-b border-zinc-200/60">
-        <div className="mx-auto max-w-7xl px-6 pt-16 pb-12 md:pt-24">
+      {/* HERO */}
+      <header className="relative pt-32 md:pt-44">
+        <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-lead">
-              Case study / 01 — Enterprise B2B SaaS
+            <p className="text-[11px] uppercase tracking-[0.4em] text-lead">
+              Case Study · 2026
             </p>
           </Reveal>
-          <Reveal delay={0.05}>
-            <h1 className="mt-6 font-serif text-6xl font-medium leading-[0.95] tracking-tight md:text-8xl">
-              Complyia
+          <Reveal delay={0.1}>
+            <h1 className="mt-8 text-balance font-serif text-5xl font-medium leading-[1.02] tracking-tight md:text-7xl lg:text-[88px]">
+              Six steps,
+              <br />
+              one trusted ledger.
             </h1>
           </Reveal>
-          <Reveal delay={0.15}>
-            <p className="mt-8 max-w-[62ch] text-balance text-xl leading-relaxed text-zinc-600 md:text-2xl">
-              Designing a compliance cloud for senior tax professionals — where a single
-              wrong row can become a regulatory event. The product hinges on a six-step
-              data validation pipeline that turns messy ledgers into filing-ready truth.
+          <Reveal delay={0.2}>
+            <p className="mt-10 max-w-2xl text-pretty text-lg leading-relaxed text-zinc-600">
+              Complyia's Data Foundation turns a messy client trial balance into
+              a clean, validated ledger ready for tax filing — in six steps a
+              tax manager can run alone, without an engineer in the room.
             </p>
           </Reveal>
         </div>
 
-        <div className="mx-auto max-w-7xl px-6 pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="aspect-[16/9] w-full overflow-hidden bg-zinc-100 outline outline-1 -outline-offset-1 outline-black/5"
-          >
-            <img src={coverImg} alt="Complyia compliance cloud dashboard" className="h-full w-full object-cover" />
-          </motion.div>
+        <div className="mx-auto mt-16 max-w-7xl px-6 md:mt-24">
+          <ImagePlate
+            src={screenHistory}
+            alt="Data Foundation history screen showing prior imports with status pills and pie chart summaries"
+            caption="The home of Data Foundation. Every import is a row. Every row tells you whether it is safe to file on."
+            aspect="aspect-[16/9]"
+            fit="contain"
+            bg="bg-white"
+          />
         </div>
-      </section>
 
-      <section className="border-b border-zinc-200/60">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-6 py-12 md:grid-cols-5">
-          {META.map((m, i) => (
-            <Reveal key={m.label} delay={i * 0.05}>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
-                {m.label}
-              </p>
-              <p className="mt-2 text-sm font-medium">{m.value}</p>
+        <div className="mx-auto mt-20 grid max-w-7xl grid-cols-2 gap-y-8 border-t border-rule px-6 py-10 md:grid-cols-6 md:gap-8">
+          {META.map((m) => (
+            <Reveal key={m.label}>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  {m.label}
+                </p>
+                <p className="mt-2 text-sm leading-snug">{m.value}</p>
+              </div>
             </Reveal>
           ))}
         </div>
-      </section>
+      </header>
 
+      {/* 01 — CONTEXT */}
       <Chapter
-        number="Chapter 01"
-        marker={"Context &\nDiscovery"}
-        title="Where a wrong row becomes a regulatory event."
+        number="01"
+        marker={"Context\n& Stakes"}
+        title="A tax filing is only as good as the ledger underneath it."
       >
         <Prose>
-          Complyia is a B2B compliance cloud built for tax professionals, controllers,
-          and transfer-pricing analysts with 6–7+ years in the seat. The platform spans
-          seven modules — Home, Entities, Tasks, Documents, Data Foundation,
-          Diagnostics, and Quick Links — but the centre of gravity is data integrity.
-          Filings depend on it; audits punish the absence of it.
+          Complyia is an early-stage compliance platform for multinationals.
+          Before any model, dashboard, or filing happens, the team has to take a
+          client's raw Trial Balance — often a 50,000-row Excel exported from
+          SAP, Oracle, or someone's laptop — and prove it is complete,
+          balanced, and mapped to the system's standard chart of accounts.
         </Prose>
-        <ImagePlate
-          src={sketchesImg}
-          alt="Module map sketches"
-          caption="01.1 — Mapping seven modules around a single source of truth: the Data Foundation."
-        />
         <Prose>
-          Discovery framed the real job: senior users are not learning the tool, they
-          are accountable for what it outputs. The interface had to behave like an
-          instrument — quiet, dense, predictable — and surface confidence with every
-          interaction.
+          The old way was an analyst, a spreadsheet, three browser tabs, and a
+          weekend. The new way had to be a wizard a Senior Tax Manager could
+          run on Monday morning with coffee in one hand.
         </Prose>
-      </Chapter>
 
-      <Chapter
-        number="Chapter 02"
-        marker={"Research &\nUser Flows"}
-        title="Eight tax professionals. One recurring fear."
-      >
-        <Prose>
-          Across eight interviews the same anxiety surfaced: "I don't know what the
-          system silently fixed." Power users wanted automation, but only if every
-          inference was visible, reversible, and attributable. That insight shaped the
-          entire validation flow.
-        </Prose>
-        <ImagePlate
-          src={userflowImg}
-          alt="Data Foundation user flow"
-          aspect="aspect-[16/9]"
-          caption="02.1 — From file drop to publish: a six-step pipeline with human-in-the-loop checkpoints."
-        />
-        <Prose>
-          The dashboard answers <em>what is the state of compliance today?</em> Data
-          Foundation answers <em>can I trust the numbers behind that state?</em> Both
-          questions had to be answerable in under a minute.
-        </Prose>
-      </Chapter>
-
-      <Chapter
-        number="Chapter 03"
-        marker={"Dashboard\n& IA"}
-        title="A modular grid for a moving target."
-      >
-        <Prose>
-          The Home dashboard composes seven independent cards — Filing Status, My
-          Entities, Federal Calendar, Controversy, Open Due Dates, Estimated Payments,
-          and Transfer Pricing — each readable in isolation and meaningful in
-          aggregate. Color is reserved for semantic urgency: amber for medium, red for
-          high, blue for informational.
-        </Prose>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <ImagePlate
-            src={wireframe1}
-            alt="Dashboard wireframe"
-            aspect="aspect-[4/5]"
-            caption="03.1 — Home dashboard: card grid with status pills, donut, and stacked timelines."
-          />
-          <ImagePlate
-            src={wireframe2}
-            alt="Data Foundation wireframe"
-            aspect="aspect-[4/5]"
-            caption="03.2 — Data Foundation: import register with grouping, search, and exception flags."
-          />
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              h: "Who it's for",
+              p: "Senior Tax Managers and Transfer-Pricing analysts. 9+ years in. Excel-fluent. Allergic to surprises.",
+            },
+            {
+              h: "What's at stake",
+              p: "Filings, audits, board-reported numbers. A silent error here is a public-company restatement later.",
+            },
+            {
+              h: "What 'done' meant",
+              p: "Six visible steps. Every AI decision reviewable. Nothing imported until a human says ship.",
+            },
+          ].map((c) => (
+            <Reveal key={c.h}>
+              <div className="border border-rule p-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  {c.h}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+                  {c.p}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Chapter>
 
-      {/* Focus chapter — Data Validation */}
+      {/* 02 — PROCESS */}
       <Chapter
-        number="Chapter 04"
-        marker={"Data\nValidation"}
-        title="The six-step pipeline that earns user trust."
+        number="02"
+        marker={"How we\nactually work"}
+        title="No traditional double-diamond. The client's brain, a pencil, and short loops."
       >
         <Prose>
-          Data Foundation is where the product is won or lost. Senior users arrive with
-          QuickBooks exports, hand-edited spreadsheets, and partner JSON dumps. The
-          wizard's job is to absorb the mess, narrate every transformation, and never
-          ship a silent change.
+          Complyia is a startup. There is no research department to brief. The
+          founder and a tax partner own the business logic; I own the
+          interface. The loop is intentionally short and intentionally cheap.
         </Prose>
 
-        <div className="my-12 border border-zinc-200/70 bg-paper">
-          <div className="grid grid-cols-12 border-b border-zinc-200/70 px-6 py-3 text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
-            <div className="col-span-1">#</div>
-            <div className="col-span-4">Step</div>
-            <div className="col-span-2">Runtime</div>
-            <div className="col-span-5">What it guarantees</div>
-          </div>
-          {VALIDATION_STEPS.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.04}>
-              <div className="grid grid-cols-12 items-baseline border-b border-zinc-200/60 px-6 py-5 last:border-b-0">
-                <div className="col-span-1 font-serif text-2xl text-zinc-400">{s.n}</div>
-                <div className="col-span-4 font-serif text-xl">{s.name}</div>
-                <div className="col-span-2 text-sm text-lead">{s.time}</div>
-                <div className="col-span-5 text-sm leading-relaxed text-zinc-700">
-                  {s.note}
-                </div>
+        <div className="grid gap-px bg-rule md:grid-cols-2">
+          {PROCESS.map((s) => (
+            <Reveal key={s.n}>
+              <div className="bg-paper p-8">
+                <p className="font-serif text-2xl text-lead">{s.n}</p>
+                <h4 className="mt-3 font-serif text-xl">{s.name}</h4>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+                  {s.body}
+                </p>
               </div>
             </Reveal>
           ))}
         </div>
 
+        <ImagePlate
+          src={sketchWizard}
+          alt="Pencil sketch of the six-step Data Foundation wizard on graph paper"
+          caption="Early sketch. Six circles, one table, a coffee stain. The whole product fits on one A4."
+          aspect="aspect-[16/9]"
+          fit="contain"
+          bg="bg-[#fbf6ec]"
+        />
+      </Chapter>
+
+      {/* 03 — THE 6 STEPS */}
+      <Chapter
+        number="03"
+        marker={"The\nWizard"}
+        title="Six steps. Each one is a job a tax manager already knows how to do."
+      >
         <Prose>
-          Three design principles hold the pipeline together. <strong>Narrate everything:</strong> a
-          live activity log timestamps each check, so a controller can later trace why a
-          row was flagged. <strong>Defer to humans on ambiguity:</strong> mapping
-          suggestions are pre-filled but never auto-applied without a visible accept
-          state. <strong>Make exceptions first-class:</strong> the Review & Publish
-          screen leads with what the system could not resolve, not with what succeeded.
+          Every step has the same shape: a stepper at the top, the action in
+          the middle, Previous / Next on the right. The stepper is the
+          contract — at any point the user knows where they are, what's
+          behind them, and what's still owed.
         </Prose>
 
-        <ImagePlate
-          src={final1}
-          alt="Upload & Classify step with live activity log"
-          aspect="aspect-[16/10]"
-          caption="04.1 — Step 01 · Upload & Classify. Schema detection runs live; rows, warnings, and mapped-columns counters animate as the file is parsed."
-        />
+        <div className="space-y-4">
+          {STEPS.map((s) => (
+            <Reveal key={s.n}>
+              <div className="grid grid-cols-12 gap-4 border-t border-rule py-6">
+                <div className="col-span-2 font-serif text-2xl text-lead md:col-span-1">
+                  {s.n}
+                </div>
+                <div className="col-span-10 md:col-span-3">
+                  <h4 className="font-serif text-xl leading-tight">{s.name}</h4>
+                  <p className="mt-2 text-[13px] italic text-lead">{s.one}</p>
+                </div>
+                <p className="col-span-12 text-sm leading-relaxed text-zinc-700 md:col-span-8">
+                  {s.detail}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Chapter>
 
-        <div className="my-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+      {/* 04 — CLEANUP */}
+      <Chapter
+        number="04"
+        marker={"Step 02\nData Cleanup"}
+        title="A no-code pipeline that still feels like Excel."
+      >
+        <Prose>
+          Tax analysts already think in operations — trim, split, cast, regex.
+          We didn't invent a new mental model; we just gave their existing one
+          a UI. Each transform is a card. Cards stack into a named pipeline.
+          The pipeline can be re-run, paused, re-ordered, or asked of the AI.
+        </Prose>
+        <ImagePlate
+          src={screenCleanup}
+          alt="Cleanup step showing a Transform pipeline panel and a live data preview table"
+          caption="Left: the pipeline (one operator visible — 'Trim Both on Entity ID'). Right: the live preview of the result. The success toast confirms every save."
+          aspect="aspect-[16/9]"
+          fit="contain"
+          bg="bg-white"
+        />
+        <div className="grid gap-6 md:grid-cols-2">
           {[
             {
-              h: "Completeness",
-              b: "Every required column is present and every required cell is populated before the wizard advances.",
+              h: "Why a pipeline, not a button",
+              p: "One-shot cleanup hides what changed. A pipeline is auditable: every cell mutation has an operator behind it, and the operator can be inspected, disabled, or removed without losing the rest.",
             },
             {
-              h: "Balance",
-              b: "Debits equal credits at the trial-balance level; subtotals reconcile to parents within tolerance.",
-            },
-            {
-              h: "Sanity",
-              b: "Domain rules — date ranges inside the scenario, entity IDs in the registry, FX rates within bounds.",
+              h: "Where the AI sits",
+              p: "Add Transform has an AI affordance that suggests the next operator based on the column you're looking at. It never runs without an explicit 'Add'.",
             },
           ].map((c) => (
-            <div key={c.h} className="border border-zinc-200/70 p-6">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-lead">
-                Validation class
-              </p>
-              <p className="mt-3 font-serif text-2xl">{c.h}</p>
-              <p className="mt-3 text-sm leading-relaxed text-zinc-600">{c.b}</p>
-            </div>
+            <Reveal key={c.h}>
+              <div className="border border-rule p-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  {c.h}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+                  {c.p}
+                </p>
+              </div>
+            </Reveal>
           ))}
         </div>
+      </Chapter>
 
+      {/* 05 — COLUMN MAPPING */}
+      <Chapter
+        number="05"
+        marker={"Step 03\nColumn Mapping"}
+        title="14 required columns. The client never has them named correctly."
+      >
         <Prose>
-          The Diagnostics column on every Entity row is the long tail of this work.
-          Numeric badges (9, 10, 21…) link directly back into the validation report so a
-          user can move from a dashboard anomaly to the originating ledger cell in two
-          clicks.
+          Every client exports their ledger with their own column names —
+          "Acc_Cd", "GL Account", "Konto". Complyia needs them mapped to a
+          single internal schema before anything else can happen. The mapping
+          itself is boring; the cost of getting it wrong is not.
+        </Prose>
+        <div className="grid gap-6 md:grid-cols-2">
+          <ImagePlate
+            src={sketchMapping}
+            alt="Hand-drawn sketch of the column mapping screen with input columns on the left and standard columns on the right"
+            caption="The sketch. Input chips on the left, standard slots on the right. Asterisks for required fields."
+            aspect="aspect-[16/10]"
+            fit="contain"
+            bg="bg-[#fbf6ec]"
+          />
+          <ImagePlate
+            src={screenColumns}
+            alt="Final column mapping screen with drag and drop and an AI mapping action"
+            caption="The build. Required columns glow red until filled. 'Run AI Mapping' is a verb, not a magic spell."
+            aspect="aspect-[16/10]"
+            fit="contain"
+            bg="bg-white"
+          />
+        </div>
+        <Prose>
+          A small thing that mattered: the red glow on the Ledger Name slot is
+          the same red used by Validation later. The user learns the language
+          of the system once, then re-uses it.
         </Prose>
       </Chapter>
 
+      {/* 06 — ACCOUNT MAPPING */}
       <Chapter
-        number="Chapter 05"
-        marker={"Visual\nSystem"}
-        title="A quiet system for long working sessions."
+        number="06"
+        marker={"Step 04\nAccount Mapping"}
+        title="AI does the first 90%. The human owns the last 10%."
       >
         <Prose>
-          The visual system is tuned for eight-hour days inside dense tables. One accent
-          carries semantic weight; everything else is neutral. Type sits on a 4-point
-          baseline. Spacing collapses to a five-step scale. Status badges, priority
-          pills, and progress bars share a single vocabulary across all seven modules.
+          The Chart of Accounts mapping is where AI earns its keep. Thousands
+          of local account codes need to land on a handful of system accounts.
+          The model proposes; the analyst disposes.
         </Prose>
-        <div className="grid grid-cols-2 gap-4 border border-zinc-200/60 p-6 md:grid-cols-4 md:gap-6 md:p-10">
+        <ImagePlate
+          src={screenAccounts}
+          alt="Account Mapping screen showing local accounts mapped to system accounts with confidence scores"
+          caption="Every row carries a confidence score and an explicit 'Needs Review' flag. Low confidence is loud, not buried."
+          aspect="aspect-[16/9]"
+          fit="contain"
+          bg="bg-white"
+        />
+        <div className="grid gap-px bg-rule md:grid-cols-3">
           {[
-            { k: "Type", v: "Inter / Newsreader" },
-            { k: "Grid", v: "12-col · 8px base" },
-            { k: "Radius", v: "2 / 4 / 8" },
-            { k: "Accent", v: "Signal Amber" },
-          ].map((t) => (
-            <div key={t.k}>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
-                {t.k}
-              </p>
-              <p className="mt-2 font-serif text-lg">{t.v}</p>
-            </div>
+            {
+              h: "Confidence is a number, not a vibe",
+              p: "We show the percentage. Under 60% always trips 'Needs Review'. The threshold is tunable per tenant.",
+            },
+            {
+              h: "Source is always attributed",
+              p: "AI, Rule, or Manual. If something looks wrong six months later, an auditor can see exactly who proposed it.",
+            },
+            {
+              h: "Bulk-accept is gated",
+              p: "Save Mapping is red, deliberate, and never the default. Accidental sign-off should be hard.",
+            },
+          ].map((c) => (
+            <Reveal key={c.h}>
+              <div className="bg-paper p-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  {c.h}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+                  {c.p}
+                </p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </Chapter>
 
+      {/* 07 — VALIDATION */}
       <Chapter
-        number="Chapter 06"
-        marker={"Final\nInterface"}
-        title="Shipping the system."
+        number="07"
+        marker={"Step 05\nValidation"}
+        title="The screen that decides whether the filing is safe."
       >
         <Prose>
-          The final product organises around three surfaces — <em>overview</em>,{" "}
-          <em>inspect</em>, and <em>act</em>. The dashboard surfaces state; Data
-          Foundation and Diagnostics let users inspect; Tasks and Documents are where
-          they act. Density controls and component vocabulary carry across all three.
+          Validation is the heart of the wizard. Every row is run through three
+          classes of rules. The output is not a popup — it is the table itself,
+          coloured at the row level, with a permanent legend at the bottom so
+          the analyst always knows how big the problem is.
         </Prose>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <ImagePlate
-            src={final2}
-            alt="Entities module list"
-            aspect="aspect-[3/4]"
-            caption="06.1 — Entities list with inline diagnostics badges."
-          />
-          <ImagePlate
-            src={final3}
-            alt="Review & Publish step"
-            aspect="aspect-[3/4]"
-            caption="06.2 — Review & Publish leads with exceptions, not successes."
-          />
+        <ImagePlate
+          src={sketchValidation}
+          alt="Pencil sketch of the validation screen showing Status pills and a bottom legend"
+          caption="Sketch — the legend lives at the bottom of the viewport, always visible while scrolling."
+          aspect="aspect-[16/9]"
+          fit="contain"
+          bg="bg-[#fbf6ec]"
+        />
+        <ImagePlate
+          src={screenValidation}
+          alt="Validation step showing a table of failed rows with a totals legend along the bottom"
+          caption="Build. 36 rows failed, 0 successful, 0 duplicates. The Submit button stays disabled until the user picks a resolution path."
+          aspect="aspect-[16/9]"
+          fit="contain"
+          bg="bg-white"
+        />
+
+        <h4 className="font-serif text-2xl">The rules engine, by class</h4>
+        <div className="overflow-x-auto border border-rule">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead className="bg-paper">
+              <tr className="border-b border-rule text-[10px] uppercase tracking-[0.2em] text-lead">
+                <th className="px-4 py-3 font-medium">Class</th>
+                <th className="px-4 py-3 font-medium">Example rule</th>
+                <th className="px-4 py-3 font-medium">Surfaced as</th>
+              </tr>
+            </thead>
+            <tbody>
+              {RULES.map((r) => (
+                <tr key={r.cls} className="border-b border-rule last:border-0">
+                  <td className="px-4 py-4 font-medium">{r.cls}</td>
+                  <td className="px-4 py-4 text-zinc-700">{r.example}</td>
+                  <td className="px-4 py-4 text-zinc-700">{r.severity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              h: "Anomalies as a sibling tab",
+              p: "Failed rows are deterministic. Anomalies are statistical (outliers, unusual postings). Same screen, different lens.",
+            },
+            {
+              h: "Three resolution paths",
+              p: "Ignore Failed, Ignore Duplicates, Overwrite Duplicates. The user picks the path; the system never decides for them.",
+            },
+            {
+              h: "Submit is one click",
+              p: "After resolution, Submit takes the validated ledger downstream. The whole wizard collapses into a single irreversible action.",
+            },
+          ].map((c) => (
+            <Reveal key={c.h}>
+              <div className="border border-rule p-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  {c.h}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-700">
+                  {c.p}
+                </p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Chapter>
 
-      <section className="border-y border-zinc-200/60 bg-zinc-50/50 py-24">
+      {/* 08 — OUTCOMES */}
+      <section className="relative border-t border-rule py-24 md:py-32">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-lead">
-              Outcomes
+            <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+              08 · Outcomes
             </p>
-            <h3 className="mt-6 max-w-3xl font-serif text-4xl font-medium leading-tight md:text-5xl">
-              Faster filings. Fewer silent fixes. A pipeline users actually trust.
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h3 className="mt-6 max-w-4xl text-balance font-serif text-4xl font-medium leading-tight md:text-6xl">
+              What changed after the wizard shipped.
             </h3>
           </Reveal>
 
-          <div className="mt-16 grid grid-cols-1 gap-12 md:grid-cols-3">
-            {[
-              { n: "−63%", l: "Time spent on data prep per filing cycle" },
-              { n: "100%", l: "Inferences attributed in the activity log" },
-              { n: "6", l: "Validation steps · one trusted pipeline" },
-            ].map((s, i) => (
-              <Reveal key={s.l} delay={i * 0.1}>
-                <p className="font-serif text-6xl font-medium tracking-tight md:text-7xl">
-                  {s.n}
-                </p>
-                <p className="mt-3 text-sm text-lead">{s.l}</p>
+          <div className="mt-16 grid gap-px bg-rule md:grid-cols-4">
+            {OUTCOMES.map((o) => (
+              <Reveal key={o.label}>
+                <div className="bg-paper p-8">
+                  <p className="font-serif text-5xl font-medium md:text-6xl">
+                    {o.metric}
+                  </p>
+                  <p className="mt-4 text-sm leading-relaxed text-zinc-700">
+                    {o.label}
+                  </p>
+                </div>
               </Reveal>
             ))}
           </div>
 
-          <Reveal>
-            <blockquote className="mt-20 max-w-3xl border-l-2 border-ink pl-6 font-serif text-2xl italic leading-snug text-zinc-700 md:text-3xl">
-              "For senior tax users, trust isn't built by automation — it's built by
-              showing the work. Every inference the system makes has to be visible,
-              reversible, and signed."
-              <footer className="mt-4 font-sans text-[11px] not-italic uppercase tracking-[0.2em] text-lead">
-                — Mounika, on reflection
-              </footer>
-            </blockquote>
-          </Reveal>
+          <div className="mt-16 grid gap-8 md:grid-cols-2">
+            <Reveal>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  What I'd do differently
+                </p>
+                <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-700">
+                  Ship the Anomalies tab in v1, not v2. Tax managers asked for
+                  it within the first week. Treating "weird but legal" as a
+                  first-class state would have saved a release cycle.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal>
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                  What survived contact with users
+                </p>
+                <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-700">
+                  The six-step stepper, the bottom legend on Validation, and
+                  the rule that AI never writes without a human accept. Those
+                  three are now load-bearing across the rest of Complyia.
+                </p>
+              </div>
+            </Reveal>
+          </div>
         </div>
       </section>
 
-      <section className="py-32">
-        <div className="mx-auto max-w-7xl px-6 text-center">
-          <p className="mb-8 text-[10px] font-bold uppercase tracking-[0.3em] text-lead">
-            Return
-          </p>
-          <Link to="/" className="group inline-block">
-            <h2 className="font-serif text-5xl font-medium tracking-tight transition-all group-hover:italic md:text-6xl">
-              Back to index
-            </h2>
-            <div className="mx-auto mt-6 h-px w-12 bg-zinc-300 transition-all group-hover:w-24 group-hover:bg-ink" />
+      {/* FOOTER NAV */}
+      <section className="border-t border-rule py-20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+              Next
+            </p>
+            <h4 className="mt-3 font-serif text-3xl md:text-4xl">
+              Back to selected work
+            </h4>
+          </div>
+          <Link
+            to="/"
+            className="group inline-flex items-center gap-3 self-start border-b border-ink pb-1 text-sm md:self-end"
+          >
+            <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }}>
+              ←
+            </motion.span>
+            Index
           </Link>
         </div>
       </section>
