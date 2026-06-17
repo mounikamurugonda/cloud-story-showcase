@@ -4,7 +4,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import { MagneticLink } from "@/components/site/MagneticLink";
-import coverImg from "@/assets/case-study/cover.jpg";
+import coverImg from "@/assets/case-study/dashboard-cover.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -147,12 +147,12 @@ function Index() {
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6 }}
-              className="relative aspect-[16/9] w-full overflow-hidden bg-zinc-200/50 outline outline-1 -outline-offset-1 outline-black/5"
+              className="relative aspect-[16/9] w-full overflow-hidden bg-white outline outline-1 -outline-offset-1 outline-black/5"
             >
               <img
                 src={coverImg}
-                alt="C-Cloud_B dashboard cover"
-                className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.02]"
+                alt="Complyia compliance dashboard"
+                className="h-full w-full object-contain transition-transform duration-[1200ms] group-hover:scale-[1.02]"
               />
               <span className="absolute bottom-4 right-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-paper/90">
                 View case study →
