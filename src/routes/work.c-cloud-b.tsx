@@ -403,6 +403,7 @@ function CaseStudy() {
             aspect="aspect-[16/10]"
             fit="contain"
             bg="bg-white"
+            frame="Step 03 / Column Mapping — Desktop"
           />
         </div>
         <Prose>
