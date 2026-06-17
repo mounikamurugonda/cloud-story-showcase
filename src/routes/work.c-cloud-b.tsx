@@ -348,7 +348,7 @@ function CaseStudy() {
             src={sketchCleanup}
             alt="Whiteboard sketch of the Data Cleanup pipeline pre-plan with stepper, operators, and pipeline flow"
             caption="The pre-plan. Pipeline operators sketched on a whiteboard before any UI was built."
-            aspect="aspect-[16/9]"
+            aspect="aspect-[9/16]"
             fit="contain"
             bg="bg-white"
             frame="Pre-plan / Data Cleanup Pipeline — Sketch"
