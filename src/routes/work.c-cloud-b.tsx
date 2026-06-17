@@ -194,6 +194,7 @@ function CaseStudy() {
             aspect="aspect-[16/9]"
             fit="contain"
             bg="bg-white"
+            frame="Data Foundation / History — Desktop"
           />
         </div>
 
