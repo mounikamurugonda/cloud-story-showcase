@@ -13,6 +13,7 @@ import screenAccounts from "@/assets/case-study/screens/04-account-mapping.png";
 import screenValidation from "@/assets/case-study/screens/05-validation.png";
 
 import sketchWizard from "@/assets/case-study/sketch-wizard.jpg";
+import sketchCleanup from "@/assets/case-study/sketch-cleanup.png";
 import sketchMapping from "@/assets/case-study/sketch-mapping.jpg";
 import sketchValidation from "@/assets/case-study/sketch-validation.jpg";
 
@@ -341,15 +342,25 @@ function CaseStudy() {
           a UI. Each transform is a card. Cards stack into a named pipeline.
           The pipeline can be re-run, paused, re-ordered, or asked of the AI.
         </Prose>
-        <ImagePlate
-          src={screenCleanup}
-          alt="Cleanup step showing a Transform pipeline panel and a live data preview table"
-          caption="Left: the pipeline (one operator visible — 'Trim Both on Entity ID'). Right: the live preview of the result. The success toast confirms every save."
-          aspect="aspect-[16/9]"
-          fit="contain"
-          bg="bg-white"
-          frame="Step 02 / Data Cleanup — Desktop"
-        />
+        <div className="grid gap-6 md:grid-cols-2">
+          <ImagePlate
+            src={sketchCleanup}
+            alt="Whiteboard sketch of the Data Cleanup pipeline pre-plan with stepper, operators, and pipeline flow"
+            caption="The pre-plan. Pipeline operators sketched on a whiteboard before any UI was built."
+            aspect="aspect-[16/9]"
+            fit="contain"
+            bg="bg-white"
+          />
+          <ImagePlate
+            src={screenCleanup}
+            alt="Cleanup step showing a Transform pipeline panel and a live data preview table"
+            caption="The build. Left: the pipeline (one operator visible — 'Trim Both on Entity ID'). Right: the live preview of the result. The success toast confirms every save."
+            aspect="aspect-[16/9]"
+            fit="contain"
+            bg="bg-white"
+            frame="Step 02 / Data Cleanup — Desktop"
+          />
+        </div>
         <div className="grid gap-6 md:grid-cols-2">
           {[
             {
