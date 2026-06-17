@@ -158,7 +158,8 @@ const OUTCOMES = [
 
 function CaseStudy() {
   return (
-    <div className="min-h-screen bg-paper paper-grain text-ink">
+    <div className="relative min-h-screen bg-paper text-ink">
+      <div className="fixed inset-0 z-50 paper-grain" />
       <Nav />
 
       {/* HERO */}
