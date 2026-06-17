@@ -431,6 +431,7 @@ function CaseStudy() {
           aspect="aspect-[16/9]"
           fit="contain"
           bg="bg-white"
+          frame="Step 04 / Account Mapping — Desktop"
         />
         <div className="grid gap-px bg-rule md:grid-cols-3">
           {[
