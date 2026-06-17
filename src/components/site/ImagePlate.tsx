@@ -6,9 +6,19 @@ interface ImagePlateProps {
   caption?: string;
   aspect?: string;
   className?: string;
+  fit?: "cover" | "contain";
+  bg?: string;
 }
 
-export function ImagePlate({ src, alt, caption, aspect = "aspect-[3/2]", className = "" }: ImagePlateProps) {
+export function ImagePlate({
+  src,
+  alt,
+  caption,
+  aspect = "aspect-[3/2]",
+  className = "",
+  fit = "cover",
+  bg = "bg-zinc-100",
+}: ImagePlateProps) {
   return (
     <figure className="space-y-3">
       <motion.div
@@ -17,9 +27,14 @@ export function ImagePlate({ src, alt, caption, aspect = "aspect-[3/2]", classNa
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         whileHover={{ y: -4 }}
-        className={`${aspect} w-full overflow-hidden bg-zinc-100 outline outline-1 -outline-offset-1 outline-black/5 ${className}`}
+        className={`${aspect} w-full overflow-hidden ${bg} outline outline-1 -outline-offset-1 outline-black/5 ${className}`}
       >
-        <img src={src} alt={alt} className="h-full w-full object-cover" loading="lazy" />
+        <img
+          src={src}
+          alt={alt}
+          className={`h-full w-full ${fit === "contain" ? "object-contain" : "object-cover"}`}
+          loading="lazy"
+        />
       </motion.div>
       {caption ? (
         <figcaption className="text-[11px] italic text-lead">{caption}</figcaption>
