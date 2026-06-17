@@ -350,6 +350,7 @@ function CaseStudy() {
             aspect="aspect-[16/9]"
             fit="contain"
             bg="bg-white"
+            frame="Pre-plan / Data Cleanup Pipeline — Sketch"
           />
           <ImagePlate
             src={screenCleanup}
