@@ -489,6 +489,7 @@ function CaseStudy() {
           aspect="aspect-[16/9]"
           fit="contain"
           bg="bg-white"
+          frame="Step 05 / Validation — Desktop"
         />
 
         <h4 className="font-serif text-2xl">The rules engine, by class</h4>
