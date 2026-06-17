@@ -348,6 +348,7 @@ function CaseStudy() {
           aspect="aspect-[16/9]"
           fit="contain"
           bg="bg-white"
+          frame="Step 02 / Data Cleanup — Desktop"
         />
         <div className="grid gap-6 md:grid-cols-2">
           {[
