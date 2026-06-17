@@ -136,7 +136,7 @@ function Index() {
           <Reveal>
             <div className="mb-10 flex items-baseline gap-4">
               <span className="font-serif text-5xl text-zinc-300">01.</span>
-              <h2 className="font-serif text-4xl font-medium tracking-tight">C-Cloud_B</h2>
+              <h2 className="font-serif text-4xl font-medium tracking-tight">Complyia</h2>
             </div>
           </Reveal>
 
@@ -162,9 +162,9 @@ function Index() {
 
           <div className="mt-12 grid w-full grid-cols-1 gap-12 border-t border-zinc-200/60 pt-12 md:grid-cols-3">
             {[
-              { label: "Client", value: "CloudBase Systems" },
+              { label: "Client", value: "Complyia" },
               { label: "Role", value: "UI/UX & frontend" },
-              { label: "Timeline", value: "12 weeks · 2024" },
+              { label: "Timeline", value: "4 weeks · 2024" },
             ].map((m) => (
               <div key={m.label}>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400">
