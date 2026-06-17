@@ -194,6 +194,7 @@ function CaseStudy() {
             aspect="aspect-[16/9]"
             fit="contain"
             bg="bg-white"
+            frame="Data Foundation / History — Desktop"
           />
         </div>
 
@@ -347,6 +348,7 @@ function CaseStudy() {
           aspect="aspect-[16/9]"
           fit="contain"
           bg="bg-white"
+          frame="Step 02 / Data Cleanup — Desktop"
         />
         <div className="grid gap-6 md:grid-cols-2">
           {[
@@ -401,6 +403,7 @@ function CaseStudy() {
             aspect="aspect-[16/10]"
             fit="contain"
             bg="bg-white"
+            frame="Step 03 / Column Mapping — Desktop"
           />
         </div>
         <Prose>
@@ -428,6 +431,7 @@ function CaseStudy() {
           aspect="aspect-[16/9]"
           fit="contain"
           bg="bg-white"
+          frame="Step 04 / Account Mapping — Desktop"
         />
         <div className="grid gap-px bg-rule md:grid-cols-3">
           {[
@@ -485,6 +489,7 @@ function CaseStudy() {
           aspect="aspect-[16/9]"
           fit="contain"
           bg="bg-white"
+          frame="Step 05 / Validation — Desktop"
         />
 
         <h4 className="font-serif text-2xl">The rules engine, by class</h4>

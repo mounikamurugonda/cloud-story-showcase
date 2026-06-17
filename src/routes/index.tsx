@@ -147,16 +147,44 @@ function Index() {
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6 }}
-              className="relative aspect-[16/9] w-full overflow-hidden bg-white outline outline-1 -outline-offset-1 outline-black/5"
+              className="relative w-full p-6 md:p-10"
+              style={{
+                backgroundColor: "#f4f5f7",
+                backgroundImage:
+                  "radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px)",
+                backgroundSize: "14px 14px",
+              }}
             >
-              <img
-                src={coverImg}
-                alt="Complyia compliance dashboard"
-                className="h-full w-full object-contain transition-transform duration-[1200ms] group-hover:scale-[1.02]"
-              />
-              <span className="absolute bottom-4 right-4 rounded-sm bg-black/50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
-                View case study →
-              </span>
+              <div className="mb-2 flex items-center gap-1.5 text-[11px] font-medium text-[#0d99ff]">
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
+                  <rect x="1" y="1" width="10" height="10" stroke="currentColor" strokeWidth="1.25" />
+                </svg>
+                <span>Complyia / Dashboard — Desktop</span>
+              </div>
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-white ring-1 ring-[#0d99ff]/60 shadow-[0_1px_0_rgba(0,0,0,0.04),0_18px_40px_-20px_rgba(13,153,255,0.25)]">
+                <img
+                  src={coverImg}
+                  alt="Complyia compliance dashboard"
+                  className="h-full w-full object-contain transition-transform duration-[1200ms] group-hover:scale-[1.02]"
+                />
+                <span className="absolute bottom-4 right-4 rounded-sm bg-black/50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
+                  View case study →
+                </span>
+              </div>
+              {["top","right","bottom","left"].map((_, i) => {
+                const positions = [
+                  "top-[18px] left-[18px] md:top-[34px] md:left-[34px]",
+                  "top-[18px] right-[18px] md:top-[34px] md:right-[34px]",
+                  "bottom-[18px] left-[18px] md:bottom-[34px] md:left-[34px]",
+                  "bottom-[18px] right-[18px] md:bottom-[34px] md:right-[34px]",
+                ];
+                return (
+                  <span
+                    key={i}
+                    className={`pointer-events-none absolute ${positions[i]} block h-2 w-2 border border-[#0d99ff] bg-white`}
+                  />
+                );
+              })}
             </motion.div>
           </Link>
 
