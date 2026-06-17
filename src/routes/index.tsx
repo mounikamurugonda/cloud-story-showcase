@@ -154,7 +154,7 @@ function Index() {
                 alt="Complyia compliance dashboard"
                 className="h-full w-full object-contain transition-transform duration-[1200ms] group-hover:scale-[1.02]"
               />
-              <span className="absolute bottom-4 right-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-paper/90">
+              <span className="absolute bottom-4 right-4 rounded-sm bg-black/50 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm">
                 View case study →
               </span>
             </motion.div>
