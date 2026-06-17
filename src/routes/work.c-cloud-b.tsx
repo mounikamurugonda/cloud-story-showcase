@@ -289,11 +289,12 @@ function CaseStudy() {
 
         <ImagePlate
           src={sketchWizard}
-          alt="Pencil sketch of the six-step Data Foundation wizard on graph paper"
-          caption="Early sketch. Six circles, one table, a coffee stain. The whole product fits on one A4."
+          alt="Hand-drawn flow sketch of the Data Foundation wizard — New Import, Wizard, Row Mapping, Data Cleanup, Output Columns"
+          caption="Foundation flow. New Import → Wizard → Row Mapping → Data Cleanup → Output Columns. Sketched end-to-end before a single Figma frame."
           aspect="aspect-[16/9]"
           fit="contain"
-          bg="bg-[#fbf6ec]"
+          bg="bg-white"
+          frame="Pre-plan / Data Foundation Flow — Sketch"
         />
       </Chapter>
 
