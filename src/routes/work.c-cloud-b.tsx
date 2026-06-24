@@ -130,23 +130,33 @@ const RULES = [
 const PROCESS = [
   {
     n: "01",
-    name: "Business logic from the client",
-    body: "Founder + tax partner walk me through the rules: how a Trial Balance is structured, why APAC and EU formats differ, what 'failed validation' costs at filing time.",
+    name: "Research & Problem Definition",
+    body: "Real user research drives every decision. I interviewed Senior Tax Managers and Transfer-Pricing analysts to understand their mental models — how they read a Trial Balance, what 'clean data' means to them, and where the current workflow breaks. Research is not overhead; it is the investment that prevents building the wrong thing.",
   },
   {
     n: "02",
-    name: "Requirements I can argue with",
-    body: "I rewrite the conversation as a one-page spec: jobs-to-be-done, primary persona (Senior Tax Manager, 9+ years), the rules engine inputs, the non-goals.",
+    name: "Stakeholder & Product Owner Alignment",
+    body: "Structured conversations with the founder and tax partner to extract business logic, constraints, and priorities. Every interview is documented — not from memory. The output is a clear problem definition: a 50,000-row Excel should not cost a weekend and three browser tabs to validate.",
   },
   {
     n: "03",
-    name: "Hand-drawn screens",
-    body: "Pencil on graph paper. Cheap to throw away. We sit with the founder, scribble, cross out, redraw. No fidelity tax on a wrong idea.",
+    name: "Planning & Prioritization",
+    body: "Working with the PO to separate must-have from good-to-have. A six-step wizard is non-negotiable. AI suggestions are must-have. Anomalies tab and bulk-retry are v2. This keeps scope honest and the timeline achievable for a Series-A startup.",
   },
   {
     n: "04",
-    name: "UI in Figma → React",
-    body: "Once the sketch survives two reviews, I move to Figma, then ship the component in React with the engineering team. Tokens, states, empty / loading / error — all of it.",
+    name: "Low-Fidelity Prototyping",
+    body: "Pencil on graph paper first. Cheap to throw away. The founder and I sit, scribble, cross out, redraw. Wireframes are then tested with the same users who were interviewed — closing the loop. Nothing moves to visual design until the sketch survives two rounds of feedback.",
+  },
+  {
+    n: "05",
+    name: "Visual Design & System Thinking",
+    body: "Color, typography, and component decisions are made within an existing design system. The red used for required fields in Column Mapping is the same red used for failed rows in Validation — users learn the system's language once, then reuse it. Every decision is problem-driven, not decorative.",
+  },
+  {
+    n: "06",
+    name: "Handoff & Implementation",
+    body: "Figma specs with tokens, states, empty / loading / error — all of it. I ship the React components alongside engineering, not over the wall. The stepper, the bottom legend, and the 'AI never writes without human accept' rule are load-bearing patterns that now survive across the rest of the product.",
   },
 ];
 
@@ -264,13 +274,16 @@ function CaseStudy() {
       {/* 02 — PROCESS */}
       <Chapter
         number="02"
-        marker={"How we\nactually work"}
-        title="No traditional double-diamond. The client's brain, a pencil, and short loops."
+        marker={"UX\nProcess"}
+        title="Problem first, pixels second. A system-level approach built on research and alignment."
       >
         <Prose>
-          Complyia is a startup. There is no research department to brief. The
-          founder and a tax partner own the business logic; I own the
-          interface. The loop is intentionally short and intentionally cheap.
+          UX is not decoration — it is the discipline of enabling users to
+          perform complex tasks quickly, easily, and without confusion. In a
+          domain as high-stakes as tax compliance, intuitive design means a
+          Senior Tax Manager reaches their goal without second-guessing the
+          system. Every decision here is grounded in research and stakeholder
+          alignment, not guesswork.
         </Prose>
 
         <div className="grid gap-px bg-rule md:grid-cols-2">
@@ -285,6 +298,35 @@ function CaseStudy() {
               </div>
             </Reveal>
           ))}
+        </div>
+
+        <div className="grid gap-6 border-t border-rule pt-10 md:grid-cols-2">
+          <Reveal>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                Old vs. new projects
+              </p>
+              <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-700">
+                Existing products follow established patterns — less discovery,
+                more refinement. New products like Complyia demand open-ended
+                research and more stakeholder alignment rounds before the first
+                wireframe.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                The review flow
+              </p>
+              <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-700">
+                Stakeholder → Product Owner → Designer → Stakeholder Review.
+                Every design starts from a problem statement, not a visual
+                solution. System thinking drives the work; decoration never
+                does.
+              </p>
+            </div>
+          </Reveal>
         </div>
 
         <ImagePlate
