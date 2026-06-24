@@ -274,13 +274,16 @@ function CaseStudy() {
       {/* 02 — PROCESS */}
       <Chapter
         number="02"
-        marker={"How we\nactually work"}
-        title="No traditional double-diamond. The client's brain, a pencil, and short loops."
+        marker={"UX\nProcess"}
+        title="Problem first, pixels second. A system-level approach built on research and alignment."
       >
         <Prose>
-          Complyia is a startup. There is no research department to brief. The
-          founder and a tax partner own the business logic; I own the
-          interface. The loop is intentionally short and intentionally cheap.
+          UX is not decoration — it is the discipline of enabling users to
+          perform complex tasks quickly, easily, and without confusion. In a
+          domain as high-stakes as tax compliance, intuitive design means a
+          Senior Tax Manager reaches their goal without second-guessing the
+          system. Every decision here is grounded in research and stakeholder
+          alignment, not guesswork.
         </Prose>
 
         <div className="grid gap-px bg-rule md:grid-cols-2">
@@ -295,6 +298,35 @@ function CaseStudy() {
               </div>
             </Reveal>
           ))}
+        </div>
+
+        <div className="grid gap-6 border-t border-rule pt-10 md:grid-cols-2">
+          <Reveal>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                Old vs. new projects
+              </p>
+              <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-700">
+                Existing products follow established patterns — less discovery,
+                more refinement. New products like Complyia demand open-ended
+                research and more stakeholder alignment rounds before the first
+                wireframe.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.3em] text-lead">
+                The review flow
+              </p>
+              <p className="mt-4 max-w-[52ch] text-sm leading-relaxed text-zinc-700">
+                Stakeholder → Product Owner → Designer → Stakeholder Review.
+                Every design starts from a problem statement, not a visual
+                solution. System thinking drives the work; decoration never
+                does.
+              </p>
+            </div>
+          </Reveal>
         </div>
 
         <ImagePlate
