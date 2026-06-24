@@ -62,9 +62,9 @@ function Index() {
             <div className="mt-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <Reveal delay={0.4}>
                 <p className="max-w-[56ch] text-base leading-relaxed text-lead sm:text-lg">
-                  Mounika Murugonda is a frontend developer and UI/UX designer based in
-                  Hyderabad. Currently exploring the intersection of modular design
-                  systems and tactile, interface-led product work.
+                  Mounika Murugonda is a frontend developer and UI/UX designer.
+                  Currently exploring the intersection of modular design systems
+                  and tactile, interface-led product work.
                 </p>
               </Reveal>
               <Reveal delay={0.5}>
